@@ -1,0 +1,92 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+#<<< API Gateway / Routes
+      routes:
+        - id: Production
+          uri: http://localhost:8082
+          predicates:
+            - Path=/undefined/**, /undefined/**, /undefined/**, /undefined/**, 
+        - id: Material Management
+          uri: http://localhost:
+          predicates:
+            - Path=/undefined/**, 
+        - id: Manufacturing Management
+          uri: http://localhost:
+          predicates:
+            - Path=/undefined/**, 
+        - id: Sales
+          uri: http://localhost:
+          predicates:
+            - Path=/undefined/**, /undefined/**, /undefined/**, /undefined/**, 
+        - id: Standard Management
+          uri: http://localhost:
+          predicates:
+            - Path=/undefined/**, /undefined/**, /codes/**, 
+        - id: frontend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+#>>> API Gateway / Routes
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: Production
+          uri: http://production:8080
+          predicates:
+            - Path=/undefined/**, /undefined/**, /undefined/**, /undefined/**, 
+        - id: Material Management
+          uri: http://materialManagement:8080
+          predicates:
+            - Path=/undefined/**, 
+        - id: Manufacturing Management
+          uri: http://manufacturingManagement:8080
+          predicates:
+            - Path=/undefined/**, 
+        - id: Sales
+          uri: http://sales:8080
+          predicates:
+            - Path=/undefined/**, /undefined/**, /undefined/**, /undefined/**, 
+        - id: Standard Management
+          uri: http://standardManagement:8080
+          predicates:
+            - Path=/undefined/**, /undefined/**, /codes/**, 
+        - id: frontend
+          uri: http://frontend:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080
